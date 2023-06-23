@@ -1,5 +1,7 @@
 #include "monty.h"
 
+extern bus_t bus;
+
 /**
  * f_add - adds the top two elements of the stack.
  * @h: stack head

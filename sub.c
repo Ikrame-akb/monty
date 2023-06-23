@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
   *f_sub- Performs subtraction of the top two elements in the stack
   *@h: Pointer to the head of the stack

@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * f_push - Adds a node to the stack
  * @h: pointer to the stack head

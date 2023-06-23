@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * f_pint - Prints the value at the top of the stack
  * @h: pointer to the head of the stack

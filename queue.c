@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * f_queue - Prints the element at the top of the queue
  * @h: Pointer to the head of the queue
