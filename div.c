@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * f_div - divides the top two elements of the stack.
  * @h: stack head

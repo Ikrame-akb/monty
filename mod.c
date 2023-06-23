@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * mod - computes the rest of the division of the second
  * top element of the stack by the top element of the stack

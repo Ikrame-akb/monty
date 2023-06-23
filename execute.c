@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * execute - executes the opcode
  * @s: head linked list - stack
@@ -38,7 +41,7 @@ int execute(char *content, stack_t **s, unsigned int count, FILE *file)
 	{
 		if (strcmp(op, opst[i].opcode) == 0)
 		{
-			opst[i].f(stack, count);
+			opst[i].f(s, count);
 			return (0);
 		}
 		i++;
