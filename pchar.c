@@ -1,4 +1,7 @@
 #include "monty.h"
+
+extern bus_t bus;
+
 /**
  * f_pchar - Prints the character at the top of the stack,
  * followed by a new line
