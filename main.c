@@ -1,9 +1,6 @@
-#define _POSIX_C_SOURCE 200809L
-
-#include "monty.h"
 #include <stdio.h>
-
-bus_t bus = {NULL, NULL, NULL, 0};
+#include <stdlib.h>
+#include "monty.h"
 
 /**
  * main - monty code interpreter
@@ -13,39 +10,39 @@ bus_t bus = {NULL, NULL, NULL, 0};
  */
 int main(int argc, char *argv[])
 {
-	char *content;
 	FILE *file;
-	size_t size = 0;
-	ssize_t read_line = 1;
-	stack_t *s = NULL;
-	unsigned int count = 0;
+	char *filename;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	unsigned int line_number = 0;
+	stack_t *stack = NULL;
+	instruction_t instruction;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file = fopen(argv[1], "r");
-	bus.file = file;
 
-	if (!file)
+	filename = argv[1];
+	file = fopen(filename, "r");
+	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
-	while (read_line > 0)
+
+	while ((read = getline(&line, &len, file)) != -1)
 	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		bus.content = content;
-		count++;
-		if (read_line > 0)
-		{
-			execute(content, &s, count, file);
-		}
-		free(content);
+		line_number++;
+		instruction = get_instruction(line);
+		if (instruction.opcode != NULL)
+			execute_instruction(&stack, &instruction, line_number);
 	}
-	free_stack(s);
+
+	free_stack(&stack);
+	free(line);
 	fclose(file);
-	return (0);
+	return (EXIT_SUCCESS);
 }

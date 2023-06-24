@@ -12,24 +12,6 @@ extern bus_t bus;
  */
 int execute(char *content, stack_t **s, unsigned int count, FILE *file)
 {
-	instruction_t opst[] = {
-		{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
-		{"pop", f_pop},
-		{"swap", f_swap},
-		{"add", f_add},
-		{"nop", f_nop},
-		{"sub", f_sub},
-		{"div", f_div},
-		{"mul", f_mul},
-		{"mod", f_mod},
-		{"pchar", f_pchar},
-		{"pstr", f_pstr},
-		{"rotl", f_rotl},
-		{"rotr", f_rotr},
-		{"queue", f_queue},
-		{"stack", f_stack},
-		{NULL, NULL}
-	};
 	unsigned int i = 0;
 	char *op;
 
@@ -37,20 +19,20 @@ int execute(char *content, stack_t **s, unsigned int count, FILE *file)
 	if (op && op[0] == '#')
 		return (0);
 	bus.arg = strtok(NULL, " \n\t");
-	while (opst[i].opcode && op)
+	while (op[i].opcode && op)
 	{
-		if (strcmp(op, opst[i].opcode) == 0)
+		if (strcmp(op, op[i].opcode) == 0)
 		{
-			opst[i].f(s, count);
+			op[i].f(s, count);
 			return (0);
 		}
 		i++;
 	}
-	if (op && opst[i].opcode == NULL)
+	if (op && op[i]opcode == NULL)
 	{ fprintf(stderr, "L%d: unknown instruction %s\n", count, op);
 		fclose(file);
 		free(content);
-		free_stack(*s);
+		free_stack(s);
 		exit(EXIT_FAILURE); }
 	return (1);
 }

@@ -52,8 +52,13 @@ typedef struct bus_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **s, unsigned int line_number);
+	void (*f)(stack_t **stack, unsigned int line_number);
+	char *value;
 } instruction_t;
+
+instruction_t get_instruction(char *line);
+void execute_instruction(stack_t **stack, instruction_t *instruction, int line_number);
+void free_stack(stack_t **h);
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t getstdin(char **lineptr, int file);
 char  *clean_line(char *content);
@@ -61,7 +66,6 @@ void f_push(stack_t **h, unsigned int number);
 void f_pall(stack_t **h, unsigned int number);
 void f_pint(stack_t **h, unsigned int number);
 int execute(char *content, stack_t **h, unsigned int count, FILE *file);
-void free_stack(stack_t *h);
 void f_pop(stack_t **h, unsigned int count);
 void f_swap(stack_t **h, unsigned int count);
 void f_add(stack_t **h, unsigned int count);
