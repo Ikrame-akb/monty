@@ -13,8 +13,6 @@ int main(int argc, char *argv[])
 	FILE *file;
 	char *filename;
 	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
 	instruction_t instruction;
@@ -33,13 +31,10 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while ((read = getline(&line, &len, file)) != -1)
-	{
-		line_number++;
-		instruction = get_instruction(line);
-		if (instruction.opcode != NULL)
-			execute_instruction(&stack, &instruction, line_number);
-	}
+	line_number++;
+	instruction = get_instruction(line);
+	if (instruction.opcode != NULL)
+	execute_instruction(&stack, &instruction, line_number);
 
 	free_stack(&stack);
 	free(line);
